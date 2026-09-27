@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deck Material Calculator — How Many Boards, Joists and Screws You Need</title>
+<meta name="description" content="Free deck material calculator. Enter your deck size, board width, and joist spacing to get an exact shopping list — decking boards, joists, screws, and total cost.">
+<meta name="keywords" content="deck material calculator, decking calculator, how many deck boards do i need, deck joist calculator, deck building materials">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="theme-color" content="#78350f">
+
+<link rel="canonical" href="https://toolara.dev/deck-material-calculator/">
+<link rel="alternate" hreflang="en" href="https://toolara.dev/deck-material-calculator/">
+<link rel="alternate" hreflang="zh-Hans" href="https://toolara.dev/deck-material-calculator/zh/">
+<link rel="alternate" hreflang="x-default" href="https://toolara.dev/deck-material-calculator/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Deck Material Calculator — Boards, Joists, Screws and Cost">
+<meta property="og:description" content="Get an exact deck material shopping list in seconds.">
+<meta property="og:url" content="https://toolara.dev/deck-material-calculator/">
+<meta property="og:locale" content="en_US">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Deck Material Calculator",
+  "url": "https://toolara.dev/deck-material-calculator/",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Any",
+  "description": "Free calculator that estimates decking boards, joists, screws, and total cost for building a deck.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="lang-switch">
+    <select id="langSelect" onchange="setLang(this.value)" aria-label="Language">
+      <option value="en">English</option>
+      <option value="zh">简体中文</option>
+    </select>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-badge">🔨 DIY Building Tool</div>
+    <h1 data-i18n="title">Deck Material Calculator</h1>
+    <p data-i18n="subtitle">Get an exact shopping list for your deck — decking boards, joists, screws, and total cost.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card">
+    <h2 class="visually-hidden" data-i18n="calcHeading">Calculator</h2>
+
+    <div class="row">
+      <div>
+        <label for="deckLength" data-i18n="lengthLabel">Deck length (ft)</label>
+        <input type="number" id="deckLength" min="1" step="0.5" placeholder="16" value="16" inputmode="decimal">
+      </div>
+      <div>
+        <label for="deckWidth" data-i18n="widthLabel">Deck width (ft)</label>
+        <input type="number" id="deckWidth" min="1" step="0.5" placeholder="12" value="12" inputmode="decimal">
+      </div>
+    </div>
+
+    <label for="boardType" data-i18n="boardTypeLabel">Decking board type</label>
+    <select id="boardType">
+      <option value="5.5" selected data-i18n="boardStd">Standard 5/4×6 (5.5" face)</option>
+      <option value="3.5" data-i18n="board2x4">2×4 (3.5" face)</option>
+      <option value="5.5_2x6" data-i18n="board2x6">2×6 (5.5" face)</option>
+      <option value="7.25" data-i18n="board2x8">2×8 (7.25" face)</option>
+      <option value="140mm" data-i18n="boardMetric">140 mm composite</option>
+    </select>
+
+    <label for="boardLength" data-i18n="boardLengthLabel">Board length (ft)</label>
+    <select id="boardLength">
+      <option value="8" data-i18n="len8">8 ft</option>
+      <option value="10" data-i18n="len10">10 ft</option>
+      <option value="12" data-i18n="len12">12 ft</option>
+      <option value="16" selected data-i18n="len16">16 ft</option>
+      <option value="20" data-i18n="len20">20 ft</option>
+    </select>
+
+    <details class="advanced">
+      <summary data-i18n="advancedLabel">Advanced settings</summary>
+      <div class="row">
+        <div>
+          <label for="gap" data-i18n="gapLabel">Gap between boards (in)</label>
+          <input type="number" id="gap" min="0" max="0.5" step="0.0625" value="0.125" inputmode="decimal">
+        </div>
+        <div>
+          <label for="joistSpacing" data-i18n="joistSpacingLabel">Joist spacing (in)</label>
+          <select id="joistSpacing">
+            <option value="12" data-i18n="js12">12" O.C.</option>
+            <option value="16" selected data-i18n="js16">16" O.C.</option>
+            <option value="24" data-i18n="js24">24" O.C.</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="boardPrice" data-i18n="boardPriceLabel">Board price ($ each)</label>
+          <input type="number" id="boardPrice" min="0" step="0.5" value="18" inputmode="decimal">
+        </div>
+        <div>
+          <label for="joistPrice" data-i18n="joistPriceLabel">Joist price ($ each)</label>
+          <input type="number" id="joistPrice" min="0" step="0.5" value="12" inputmode="decimal">
+        </div>
+      </div>
+      <label for="screwPrice" data-i18n="screwPriceLabel">Screws price ($ per 100)</label>
+      <input type="number" id="screwPrice" min="0" step="1" value="15" inputmode="decimal">
+    </details>
+
+    <button class="calc" type="button" onclick="calculate()" data-i18n="calcBtn">Calculate materials</button>
+
+    <div id="result" role="region" aria-live="polite">
+      <div class="result-label" data-i18n="resultLabel">Materials needed</div>
+      <div class="result-main" id="resultMain">—</div>
+      <div class="result-sub" id="resultSub"></div>
+
+      <div class="breakdown">
+        <div class="bd-row"><span data-i18n="bdDeckArea">Deck area</span><strong id="bdDeckArea">—</strong></div>
+        <div class="bd-row"><span data-i18n="bdBoards">Decking boards</span><strong id="bdBoards">—</strong></div>
+        <div class="bd-row"><span data-i18n="bdLinearFt">Total board linear feet</span><strong id="bdLinearFt">—</strong></div>
+        <div class="bd-row"><span data-i18n="bdJoists">Joists</span><strong id="bdJoists">—</strong></div>
+        <div class="bd-row"><span data-i18n="bdJoistLF">Joist linear feet</span><strong id="bdJoistLF">—</strong></div>
+        <div class="bd-row"><span data-i18n="bdScrews">Screws</span><strong id="bdScrews">—</strong></div>
+        <div class="bd-divider"></div>
+        <div class="bd-row bd-sub"><span data-i18n="bdBoardCost">Boards cost</span><strong id="bdBoardCost">—</strong></div>
+        <div class="bd-row bd-sub"><span data-i18n="bdJoistCost">Joists cost</span><strong id="bdJoistCost">—</strong></div>
+        <div class="bd-row bd-sub"><span data-i18n="bdScrewCost">Screws cost</span><strong id="bdScrewCost">—</strong></div>
+        <div class="bd-divider"></div>
+        <div class="bd-row bd-total"><span data-i18n="bdTotal">Estimated total</span><strong id="bdTotal">—</strong></div>
+      </div>
+
+      <div class="share-row">
+        <button class="share-btn" type="button" onclick="copyShareLink()" data-i18n="shareBtn">Copy shareable link</button>
+        <span class="share-copied" id="shareCopied" data-i18n="shareCopied">Copied!</span>
+      </div>
+
+      <div class="result-disclaimer" data-i18n="resultDisclaimer">Estimate only. Actual quantities vary by local building codes, board grade, waste factor, and layout. Always add 10% waste and verify with a lumber yard.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-i18n="whatIsTitle">How deck materials are estimated</h2>
+    <p data-i18n="whatIsText">A deck's material list comes down to four things: the deck's total area, the width of the boards you're using, the gap between them, and the joist spacing. This calculator handles the math, and also returns total linear feet and a cost estimate so you can budget before you head to the lumber yard.</p>
+  </section>
+
+  <section>
+    <h2 data-i18n="boardTitle">Common decking board sizes</h2>
+    <table>
+      <thead>
+        <tr><th data-i18n="thType">Board type</th><th data-i18n="thNominal">Nominal</th><th data-i18n="thActual">Actual face width</th></tr>
+      </thead>
+      <tbody>
+        <tr><td data-i18n="boardStd">5/4 decking</td><td>5/4 × 6</td><td>5.5 in</td></tr>
+        <tr><td data-i18n="board2x4">Pressure-treated 2×4</td><td>2 × 4</td><td>3.5 in</td></tr>
+        <tr><td data-i18n="board2x6">Pressure-treated 2×6</td><td>2 × 6</td><td>5.5 in</td></tr>
+        <tr><td data-i18n="board2x8">Pressure-treated 2×8</td><td>2 × 8</td><td>7.25 in</td></tr>
+        <tr><td data-i18n="boardMetric">Composite (metric)</td><td>140 mm</td><td>5.5 in</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2 data-i18n="joistTitle">Joist spacing rules of thumb</h2>
+    <ul>
+      <li data-i18n="js12Rule"><strong>12" O.C.</strong> — required for most composite decking and diagonal layouts</li>
+      <li data-i18n="js16Rule"><strong>16" O.C.</strong> — standard for wood decking running perpendicular to joists</li>
+      <li data-i18n="js24Rule"><strong>24" O.C.</strong> — only allowed for certain engineered wood boards; check manufacturer specs</li>
+    </ul>
+    <p data-i18n="joistNote">Always check your local building code and the decking manufacturer's installation instructions before building. Joist spacing has structural implications, not just material counts.</p>
+  </section>
+
+  <section>
+    <h2 data-i18n="howToTitle">How to use this calculator</h2>
+    <ol>
+      <li data-i18n="howTo1">Enter your deck's length and width in feet.</li>
+      <li data-i18n="howTo2">Choose the decking board type you plan to use.</li>
+      <li data-i18n="howTo3">Select your board length (usually 8, 12, or 16 ft).</li>
+      <li data-i18n="howTo4">Adjust gap and joist spacing if you have specific plans.</li>
+      <li data-i18n="howTo5">Enter current prices to estimate total cost.</li>
+      <li data-i18n="howTo6">Click "Calculate materials" to see your shopping list.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2 data-i18n="faqTitle">Frequently asked questions</h2>
+    <h3 data-i18n="faq1q">How many deck boards do I need for a 12×16 deck?</h3>
+    <p data-i18n="faq1a">For a 12×16 ft deck (192 sq ft) using standard 5/4×6 boards at 16" joist spacing with a 1/8" gap, you need approximately 41 boards if using 16 ft lengths, or 82 boards if using 8 ft lengths. This calculator gives the exact number for your specific dimensions.</p>
+
+    <h3 data-i18n="faq2q">Should I run deck boards parallel or perpendicular to the house?</h3>
+    <p data-i18n="faq2a">Perpendicular (boards running away from the house) is the most common and structurally straightforward. Parallel layouts can work but require blocking between joists. Diagonal layouts look distinctive but need 12" joist spacing and generate more waste.</p>
+
+    <h3 data-i18n="faq3q">What is the ideal gap between deck boards?</h3>
+    <p data-i18n="faq3a">1/8 inch (3 mm) is standard for most wood and composite decking. Pressure-treated wood shrinks slightly as it dries, so 1/8" is safe. Composite decking usually has specific gap requirements — check the manufacturer's spec.</p>
+
+    <h3 data-i18n="faq4q">How many screws do I need per board?</h3>
+    <p data-i18n="faq4a">Two screws per joist per board. For a 12×16 deck with 16" joist spacing, that's roughly 2 screws × 13 joists × 41 boards = about 1,066 screws. This calculator estimates based on your specific dimensions and adds a 10% buffer.</p>
+
+    <h3 data-i18n="faq5q">Should I add a waste factor?</h3>
+    <p data-i18n="faq5a">Yes. Always order 10% extra material for cutting waste, defects, and future repairs. For diagonal layouts, increase to 15%. This calculator reports the minimum needed; buy 10% more than the estimate.</p>
+
+    <div class="disclaimer" data-i18n="disclaimer"><strong>Disclaimer:</strong> This calculator provides estimates for planning purposes. Deck construction has structural and safety implications. Always verify with your local building department and consult a licensed contractor for complex projects.</div>
+  </section>
+</main>
+
+<footer class="footer" data-i18n="footer">Runs entirely in your browser. No data is collected or stored.</footer>
+
+<script src="js/i18n.js"></script>
+<script src="js/calculator.js"></script>
+</body>
+</html>
